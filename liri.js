@@ -11,11 +11,11 @@ var userSearch = process.argv.slice(3).join(' ');
 var spotify = new Spotify(keys.spotify);
 
 function concertThis() {
-  var myUrl = 'https://rest.bandsintown.com/artists/" + userSearch + "/events?app_id=codingbootcamp';
+  var myUrl = 'https://rest.bandsintown.com/artists/' + userSearch + '/events?app_id=codingbootcamp';
 
   axios.get(myUrl)
     .then(function(response) {
-      for(i = i; i < response.data.length; i++) {
+      for(i = 0; i < response.data.length; i++) {
         var day = moment(response.data[i].datetime).format('dddd, MMMM Do YYYY, h:mm:ss a');
         console.log("---------------------------------------");
         console.log(`Venue Name: ${response.data[i].venue.name}`);
@@ -46,7 +46,7 @@ function spotifyThisSong() {
 }
 
 function movieThis() {
-  var myUrl = 'http://www.omdbapi.com/?apikey=trilogy&t=' + userSearch
+  var myUrl = 'http://www.omdbapi.com/?apikey=trilogy&t=' + userSearch;
 
   axios.get(myUrl)
     .then(function(response) {
