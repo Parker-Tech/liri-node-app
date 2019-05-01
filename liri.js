@@ -50,15 +50,16 @@ function movieThis() {
 
   axios.get(myUrl)
     .then(function(response) {
+      // console.log(response);
       console.log("---------------------------------------");
-      console.log(`Title: ${response.Title}`);
-      console.log(`Year: ${response.Year}`);
-      console.log(`IMBD Rating: ${response.Ratings[0].Value}`);
-      console.log(`Rotten Tomatoes Rating: ${response.Ratings[1].Value}`);
-      console.log(`Country: ${response.Country}`);
-      console.log(`Language: ${response.Language}`);
-      console.log(`Plot: ${response.Plot}`);
-      console.log(`Actors: ${response.Actors}`);
+      console.log(`Title: ${response.data.Title}`);
+      console.log(`Year: ${response.data.Year}`);
+      console.log(`IMBD Rating: ${response.data.Ratings[0].Value}`);
+      console.log(`Rotten Tomatoes Rating: ${response.data.Ratings[1].Value}`);
+      console.log(`Country: ${response.data.Country}`);
+      console.log(`Language: ${response.data.Language}`);
+      console.log(`Plot: ${response.data.Plot}`);
+      console.log(`Actors: ${response.data.Actors}`);
     })
     .catch(function(error) {
       console.log(error);
