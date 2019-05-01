@@ -46,11 +46,26 @@ function spotifyThisSong() {
 
 function movieThis() {
   var myUrl = 'http://www.omdbapi.com/?apikey=trilogy&t=' + userSearch
+
+  axios.get(myUrl)
+    .then(function(response) {
+      console.log("---------------------------------------");
+      console.log(`Title: ${response.Title}`);
+      console.log(`Year: ${response.Year}`);
+      console.log(`IMBD Rating: ${response.Ratings[0].Value}`);
+      console.log(`Rotten Tomatoes Rating: ${response.Ratings[1].Value}`);
+      console.log(`Country: ${response.Country}`);
+      console.log(`Language: ${response.Language}`);
+      console.log(`Plot: ${response.Plot}`);
+      console.log(`Actors: ${response.Actors}`);
+    })
+    .catch(function(error) {
+      console.log(error);
+    });
 }
 
 function doWhatItSays() {
-  console.log(process.argv)
-  console.log(userSearch)
+
 }
 
 switch (commandName) {
