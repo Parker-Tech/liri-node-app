@@ -1,21 +1,22 @@
-require("dotenv").config();
+require('dotenv').config();
 
 var keys = require('./keys.js');
 var Spotify = require('node-spotify-api');
 var axios = require('axios');
 var moment = require('moment');
+var fs = require('fs');
 var commandName = process.argv[2];
-var userSearch = process.argv.slice(3).join(" ");
+var userSearch = process.argv.slice(3).join(' ');
 
 var spotify = new Spotify(keys.spotify);
 
 function concertThis() {
-  var myUrl = "https://rest.bandsintown.com/artists/" + userSearch + "/events?app_id=codingbootcamp";
+  var myUrl = 'https://rest.bandsintown.com/artists/" + userSearch + "/events?app_id=codingbootcamp';
 
   axios.get(myUrl)
     .then(function(response) {
       for(i = i; i < response.data.length; i++) {
-        var day = moment(response.data[i].datetime).format("dddd, MMMM Do YYYY, h:mm:ss a");
+        var day = moment(response.data[i].datetime).format('dddd, MMMM Do YYYY, h:mm:ss a');
         console.log("---------------------------------------");
         console.log(`Venue Name: ${response.data[i].venue.name}`);
         console.log(`Venue Location : ${response.data[i].venue.city}, ${response.data[i].venue.region}`)
@@ -65,7 +66,28 @@ function movieThis() {
 }
 
 function doWhatItSays() {
-
+  fs.readFile('./random.txt', 'utf8', (err, data) => {
+    if (err) throw err;
+    var fileContent = data.split(',');
+    // console.log(fileContent[0] + " " + fileContent[1])
+    userSearch = fileContent[1];
+    switch (fileContent[0]) {
+      case 'concert-this':
+        concertThis();
+        break;
+      case 'spotify-this-song':
+        spotifyThisSong();
+        break;
+      case 'movie-this':
+        movieThis();
+        break;
+      case 'do-what-it-says':
+        doWhatItSays();
+        break;
+      default:
+        console.log('Not valid entry. Try again.');
+    }
+  });
 }
 
 switch (commandName) {
